@@ -34,7 +34,7 @@ def create_sum_order_items_df(df):
     sum_order_items_df.columns = ["product_name", "sales_count"]
     return sum_order_items_df
 
-all_df = pd.read_csv("https://raw.githubusercontent.com/nfvalenn/dashboardd/edit/main/dashboard/all_data.csv")
+all_df = pd.read_csv("https://raw.githubusercontent.com/nfvalenn/dashboardd/blob/main/dashboard/all_data.csv")
 
 datatime_columns = ["order_approved_at", "order_delivered_customer_date"]
 all_data.sort_values(by="order_approved_at", inplace=True)
