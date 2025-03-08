@@ -48,7 +48,7 @@ min_date = all_data["order_approved_at"].min()
 max_date = all_data["order_approved_at"].max()
 
 with st.sidebar:
-    st.image("../logo.png")
+    st.image("https://raw.githubusercontent.com/nfvalenn/dashboardd/main/logo.png")
     start_date, end_date = st.date_input(
         label="Rentang Waktu", min_value=min_date,
         max_value=max_date,
