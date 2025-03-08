@@ -34,7 +34,7 @@ def create_sum_order_items_df(df):
     sum_order_items_df.columns = ["product_name", "sales_count"]
     return sum_order_items_df
 
-all_df = pd.read_csv("https://raw.githubusercontent.com/nfvalenn/dashboardd/main/dashboard/all_data.csv")
+all_data = pd.read_csv("https://raw.githubusercontent.com/nfvalenn/dashboardd/main/dashboard/all_data.csv")
 
 all_data.dropna(subset=["order_approved_at"], inplace=True)
 
