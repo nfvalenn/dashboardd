@@ -37,11 +37,10 @@ def create_sum_order_items_df(df):
 all_data = pd.read_csv("https://raw.githubusercontent.com/nfvalenn/dashboardd/main/dashboard/all_data.csv")
 
 all_data.dropna(subset=["order_approved_at"], inplace=True)
-
 all_data.sort_values(by="order_approved_at", inplace=True)
-
 all_data.reset_index(inplace=True)
 
+datatime_columns = ["order_approved_at"]
 for column in datatime_columns:
     all_data[column] =  pd.to_datetime(all_data[column])
 
