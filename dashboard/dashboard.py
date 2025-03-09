@@ -163,6 +163,8 @@ heat_data = list(zip(geo_delivery_clean['geolocation_lat'], geo_delivery_clean['
 
 HeatMap(heat_data).add_to(m)
 folium_static(m)
+st.markdown("<br>", unsafe_allow_html=True)
+
 st.write("""
 **Keterangan:**  
 Peta ini menampilkan **analisis waktu pengiriman** berdasarkan lokasi menggunakan **Heatmap**.  
