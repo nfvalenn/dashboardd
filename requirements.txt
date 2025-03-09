@@ -6,3 +6,4 @@ streamlit
 seaborn
 babel
 folium
+streamlit_folium
