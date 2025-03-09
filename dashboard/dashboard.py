@@ -1,6 +1,9 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import folium
+from folium.plugins import HeatMap
+from streamlit_folium import folium_static
 import streamlit as st
 from babel.numbers import format_currency
 
@@ -34,7 +37,24 @@ def create_sum_order_items_df(df):
     sum_order_items_df.columns = ["product_name", "sales_count"]
     return sum_order_items_df
 
-all_data = pd.read_csv("https://raw.githubusercontent.com/nfvalenn/dashboardd/main/dashboard/all_data.csv")
+def create_mean_city_delivery_time(df):
+    mean_city_delivery_time = df.groupby('customer_city')['delivery_time'].mean().reset_index()
+    return mean_city_delivery_time
+
+def create_pengiriman_lambat(df):
+    pengiriman_lambat = mean_city_delivery_time.nlargest(10, 'delivery_time')
+    pengiriman_lambat.head(10)
+
+def create_pengiriman_cepat(df):
+    pengiriman_cepat = mean_city_delivery_time.nsmallest(10, 'delivery_time')
+    pengiriman_cepat.head(10)
+
+chunk_size = 100000
+chunks = pd.read_csv("all_data.csv.gz", chunksize=chunk_size, compression="gzip")
+
+all_data = pd.concat([chunk for _, chunk in zip(range(5), chunks)])
+
+print(all_data.head())
 
 all_data.dropna(subset=["order_approved_at"], inplace=True)
 all_data.sort_values(by="order_approved_at", inplace=True)
@@ -62,6 +82,9 @@ with st.sidebar:
     top_10_city = create_top_10_city(main_df)
     top_10_state = create_top_10_state(main_df)
     sum_order_item = create_sum_order_items_df(main_df)
+    mean_city_delivery_time = create_mean_city_delivery_time(main_df)
+    pengiriman_lambat = create_pengiriman_lambat(main_df)
+    pengiriman_cepat = create_pengiriman_cepat(main_df)
 
 st.header('E-Commarce Dashboard Data Analysis:sparkles:')
 
@@ -130,5 +153,14 @@ ax.set_xlabel(None)
 
 ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha="right", fontsize=12)
 st.pyplot(fig)
+
+st.subheader("Pengiriman Paling Cepat dan Paling Lambat")
+m = folium.Map(location=(-14.242915, -53.189266), zoom_start=5, width=500, height=350)
+geo_delivery_clean = all_data.dropna(subset=['geolocation_lat', 'geolocation_lng', 'delivery_time'])
+
+heat_data = list(zip(geo_delivery_clean['geolocation_lat'], geo_delivery_clean['geolocation_lng'], geo_delivery_clean['delivery_time']))
+
+HeatMap(heat_data).add_to(m)
+folium_static(m)
 
 st.caption('Copyright © Nabila Febriyanti Valentin 2025')
