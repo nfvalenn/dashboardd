@@ -163,10 +163,10 @@ heat_data = list(zip(geo_delivery_clean['geolocation_lat'], geo_delivery_clean['
 
 HeatMap(heat_data).add_to(m)
 folium_static(m)
-
 st.write("""
-Peta berikut menunjukkan analisis waktu pengiriman berdasarkan lokasi menggunakan **Heatmap**.
-Semakin merah titik pada peta, semakin lama waktu pengiriman di lokasi tersebut.  
-Sebaliknya, warna biru atau hijau menunjukkan waktu pengiriman yang lebih cepat.  
+**Keterangan:**  
+Peta ini menampilkan **analisis waktu pengiriman** berdasarkan lokasi menggunakan **Heatmap**.  
+- **Merah** → Pengiriman lebih lama  
+- **Hijau/Biru** → Pengiriman lebih cepat  
 """)
 st.caption('Copyright © Nabila Febriyanti Valentin 2025')
