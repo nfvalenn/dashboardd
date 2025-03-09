@@ -156,14 +156,6 @@ ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha="right", fontsize=12)
 st.pyplot(fig)
 
 st.subheader("Pengiriman Paling Cepat dan Paling Lambat")
-m = folium.Map(location=(-14.242915, -53.189266), zoom_start=5, width=500, height=350)
-geo_delivery_clean = all_data.dropna(subset=['geolocation_lat', 'geolocation_lng', 'delivery_time'])
-
-heat_data = list(zip(geo_delivery_clean['geolocation_lat'], geo_delivery_clean['geolocation_lng'], geo_delivery_clean['delivery_time']))
-
-HeatMap(heat_data).add_to(m)
-folium_static(m)
-st.markdown("<br>", unsafe_allow_html=True)
 
 st.write("""
 **Keterangan:**  
@@ -171,4 +163,13 @@ Peta ini menampilkan **analisis waktu pengiriman** berdasarkan lokasi menggunaka
 - **Merah** → Pengiriman lebih lama  
 - **Hijau/Biru** → Pengiriman lebih cepat  
 """)
+
+m = folium.Map(location=(-14.242915, -53.189266), zoom_start=5, width=500, height=350)
+geo_delivery_clean = all_data.dropna(subset=['geolocation_lat', 'geolocation_lng', 'delivery_time'])
+
+heat_data = list(zip(geo_delivery_clean['geolocation_lat'], geo_delivery_clean['geolocation_lng'], geo_delivery_clean['delivery_time']))
+
+HeatMap(heat_data).add_to(m)
+folium_static(m)
+
 st.caption('Copyright © Nabila Febriyanti Valentin 2025')
