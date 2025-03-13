@@ -42,8 +42,6 @@ def create_order_payments_df(df):
 url = "https://raw.githubusercontent.com/nfvalenn/dashboardd/main/dashboard/all_data_i.csv"
 all_data = pd.read_csv(url)
 
-print(all_data.head())
-
 all_data.dropna(subset=["order_approved_at"], inplace=True)
 all_data.sort_values(by="order_approved_at", inplace=True)
 all_data.reset_index(inplace=True)
