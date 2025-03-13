@@ -38,11 +38,9 @@ def create_order_payments_df(df):
     order_payments_df = df.groupby("payment_type").order_id.nunique().reset_index()
     return order_payments_df
 
-chunk_size = 100000
-url = "https://raw.githubusercontent.com/nfvalenn/dashboardd/main/dashboard/all_data.csv.gz"
-chunks = pd.read_csv(url, chunksize=chunk_size, compression="gzip")
 
-all_data = pd.concat([chunk for _, chunk in zip(range(5), chunks)])
+url = "https://raw.githubusercontent.com/nfvalenn/dashboardd/main/dashboard/all_data_i.csv"
+all_data = pd.read_csv(url)
 
 print(all_data.head())
 
