@@ -47,10 +47,6 @@ dashboardd/
 │-- README.md
 ```
 
-## File Proyek_Analisis_Data.ipynb
-Dikarenakan File terlalu besar tidak bisa langsung dibuka di github berikut link google drivenya
-https://drive.google.com/file/d/1_lnUie_qut77ztk-PDrdTjYoJitHO89I/view?usp=sharing
-
 ## 🚀 Hasil Deploy Streamlit  
 Anda dapat mengakses aplikasi yang telah dideploy melalui tautan berikut:  
 
