@@ -39,7 +39,7 @@ def create_order_payments_df(df):
     return order_payments_df
 
 
-url = "https://raw.githubusercontent.com/nfvalenn/dashboardd/main/dashboard/all_data_i.csv"
+url = "https://raw.githubusercontent.com/nfvalenn/dashboardd/main/dashboard/all_data_a.csv"
 all_data = pd.read_csv(url)
 
 all_data.dropna(subset=["order_approved_at"], inplace=True)
