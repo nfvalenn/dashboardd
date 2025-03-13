@@ -38,20 +38,22 @@ def create_order_payments_df(df):
     order_payments_df = df.groupby("payment_type").order_id.nunique().reset_index()
     return order_payments_df
 
-
 url = "https://raw.githubusercontent.com/nfvalenn/dashboardd/main/dashboard/all_data_a.csv"
-all_data = pd.read_csv(url)
 
-all_data.dropna(subset=["order_approved_at"], inplace=True)
+all_data = pd.read_csv(url, delimiter=";", encoding="utf-8")
+
+datetime_columns = ["order_approved_at", "order_delivered_customer"]
+for column in datetime_columns:
+    if column in all_data.columns:
+        all_data[column] = pd.to_datetime(all_data[column], errors="coerce")
+
 all_data.sort_values(by="order_approved_at", inplace=True)
-all_data.reset_index(inplace=True)
-
-datatime_columns = ["order_approved_at"]
-for column in datatime_columns:
-    all_data[column] =  pd.to_datetime(all_data[column])
+all_data.reset_index(drop=True, inplace=True)
 
 min_date = all_data["order_approved_at"].min()
 max_date = all_data["order_approved_at"].max()
+
+
 
 with st.sidebar:
     st.image("https://raw.githubusercontent.com/nfvalenn/dashboardd/main/logo.png")
